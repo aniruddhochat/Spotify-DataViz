@@ -95,7 +95,7 @@ genre_year_popularity = filtered_df.groupby(['Genre', 'Year']).agg({'Popularity'
 
 
 genre_month_popularity = filtered_df.groupby(['Genre', 'Year']).agg({'Popularity': 'mean'}).reset_index()
-
+print(filtered_df)
 plt.figure(figsize=(14, 8))
 sns.lineplot(x='Year', y='Popularity', hue='Genre', data=genre_month_popularity, palette='viridis', marker='o')
 plt.title('Genre-wise Popularity Over Years')
