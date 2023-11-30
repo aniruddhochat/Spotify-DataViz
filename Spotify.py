@@ -9,62 +9,6 @@ import streamlit as st
 import plotly.express as px
 
 # %%
-clientId = c.client_id
-clientSecret = c.client_secret
-client_credentials_manager = SpotifyClientCredentials(clientId,clientSecret)
-sp = spotipy.Spotify(client_credentials_manager = client_credentials_manager)
-
-# %%
-def processPlaylist(playlistId):
-    trackDetails = []
-    playlist = sp.playlist_items(playlistId)
-    for items in playlist['items']:
-        track = items['track']
-        for artist in track['artists']:
-            artistDetails = sp.artist(artist['id'])
-            for genre in artistDetails['genres']:
-                trackDetails.append([track['id'],track['name'],track['album']['name'],artist['name'],track['album']['release_date'],track['popularity'],track['duration_ms'],genre])
-    return trackDetails
-
-# %%
-playlists = {
-2000: '37i9dQZF1DWUZv12GM5cFk',
-2001: '37i9dQZF1DX9Ol4tZWPH6V',
-2002: '37i9dQZF1DX0P7PzzKwEKl',
-2003: '37i9dQZF1DXaW8fzPh9b08',
-2004: '37i9dQZF1DWTWdbR13PQYH',
-2005: '37i9dQZF1DWWzQTBs5BHX9',
-2006: '37i9dQZF1DX1vSJnMeoy3V',
-2007: '37i9dQZF1DX3j9EYdzv2N9',
-2008: '37i9dQZF1DWYuGZUE4XQXm',
-2009: '37i9dQZF1DX4UkKv8ED8jp',
-2010: '37i9dQZF1DXc6IFF23C9jj',
-2011: '37i9dQZF1DXcagnSNtrGuJ',
-2012: '37i9dQZF1DX0yEZaMOXna3',
-2013: '37i9dQZF1DX3Sp0P28SIer',
-2014: '37i9dQZF1DX0h0QnLkMBl4',
-2015: '37i9dQZF1DX9ukdrXQLJGZ',
-2016: '37i9dQZF1DX8XZ6AUo9R4R',
-2017: '37i9dQZF1DWTE7dVUebpUW',
-2018: '37i9dQZF1DXe2bobNYDtW8',
-2019: '37i9dQZF1DWVRSukIED0e9',
-2020: '37i9dQZF1DX7Jl5KP2eZaS',
-2021: '5GhQiRkGuqzpWZSE7OU4Se',
-2022: '37i9dQZF1DX18jTM2l2fJY'
-}
-trackDetails = []
-for id in playlists.values():
-    trackDetails.append(processPlaylist(id))
-    print(f'Playlist Done: {id}')
-
-
-# %%
-tracksFlattened = [item for sublist in trackDetails for item in sublist]
-columns = ['TrackID','TrackName','AlbumName','Artist','ReleaseDate','Popularity','Length','Genre']
-df = pd.DataFrame(tracksFlattened, columns=columns)
-#print(df)
-df.to_csv('spotify.csv',sep=',')
-
 # %%
 df = pd.read_csv('spotify.csv')
 df.head()
