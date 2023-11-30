@@ -94,11 +94,11 @@ filtered_df = df[df['Genre'].isin(selected_genre)]
 # st.plotly_chart(fig)
 
 
-genre_year_popularity = filtered_df.groupby(['Genre', 'ReleaseDate']).agg({'Rank': 'mean'}).reset_index()
+genre_year_popularity = filtered_df.groupby(['Genre', 'ReleaseDate']).agg({'Popularity': 'mean'}).reset_index()
 
 # Plotting
 plt.figure(figsize=(14, 8))
-sns.lineplot(x='ReleaseDate', y='Rank', hue='Genre', data=genre_year_popularity, palette='viridis', marker='o')
+sns.lineplot(x='ReleaseDate', y='Popularity', hue='Genre', data=genre_year_popularity, palette='viridis', marker='o')
 plt.title('Genre-wise Popularity Over Years')
 plt.xlabel('Release Years')
 plt.ylabel('Average Rank')
