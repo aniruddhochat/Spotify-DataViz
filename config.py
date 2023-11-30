@@ -1,0 +1,5 @@
+username = '22bh7wcnooapzirnplrfk7xri'
+client_id ='367f45e9012c4a61aa62b14243f00340'
+client_secret = '791127e67a34493cb3cf064637ce9941'
+redirect_uri = 'http://localhost:8080/callback'
+scope = 'playlist-modify-public playlist-modify-private playlist-read-collaborative playlist-read-private'
