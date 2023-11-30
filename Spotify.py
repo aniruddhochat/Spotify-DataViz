@@ -86,8 +86,18 @@ genre_year_popularity = filtered_df.groupby(['Genre', 'Year']).agg({'Popularity'
 # # Display the plot in Streamlit
 # st.pyplot(plt)
 
+# plt.figure(figsize=(14, 8))
+# sns.lineplot(x='Year', y='Popularity', hue='Genre', data=genre_year_popularity, palette='viridis', marker='o')
+# plt.title('Genre-wise Popularity Over Years')
+# plt.xlabel('Years')
+# plt.ylabel('Average Popularity')
+# plt.legend(title='Genre', bbox_to_anchor=(1.05, 1), loc='upper left')
+
+
+genre_month_popularity = filtered_df.groupby(['Genre', 'Year']).agg({'Popularity': 'mean'}).reset_index()
+
 plt.figure(figsize=(14, 8))
-sns.lineplot(x='Year', y='Popularity', hue='Genre', data=genre_year_popularity, palette='viridis', marker='o')
+sns.lineplot(x='Year', y='Popularity', hue='Genre', data=genre_month_popularity, palette='viridis', marker='o')
 plt.title('Genre-wise Popularity Over Years')
 plt.xlabel('Years')
 plt.ylabel('Average Popularity')
