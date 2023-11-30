@@ -8,28 +8,7 @@ import matplotlib.pyplot as plt
 import streamlit as st
 import plotly.express as px
 
-# %%
-# %%
-df = pd.read_csv('spotify.csv')
-# df.head()
-
-# %%
-df['ReleaseDate'].value_counts()
-df = df[~df['ReleaseDate'].isin(['1999', '2000', '2001', '2002', '2003', '2004', '2005', '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015', '2018'])]
-df.shape
-
-# %%
-# uniqueTracks = df['TrackID'].unique()
-# print(len(uniqueTracks))
-
-# %%
-df['ReleaseDate'] = pd.to_datetime(df['ReleaseDate'])
-
-# %%
-df['Month'] = df['ReleaseDate'].dt.month
-df['Year'] = df['ReleaseDate'].dt.year
-
-# %%
+df = pd.read_csv('spotifyFinal.csv')
 
 # filtered_df = df[(df['ReleaseDate'].dt.year >= 2001) & (df['ReleaseDate'].dt.year <= 2001) & (df['Genre'] == 'big beat')]
 
@@ -64,7 +43,7 @@ df['Year'] = df['ReleaseDate'].dt.year
 # plt.show()
 
 # %%
-st.title("Interactive Genre-wise Popularity Over Years")
+st.title("Genre-wise Popularity Over Years")
 
 # Genre Filter
 selected_genre = st.multiselect("Select Genre", df['Genre'].unique())
