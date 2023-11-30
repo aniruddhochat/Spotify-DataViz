@@ -72,26 +72,40 @@ selected_genre = st.multiselect("Select Genre", df['Genre'].unique())
 # Filter DataFrame
 filtered_df = df[df['Genre'].isin(selected_genre)]
 
-# Plot
-fig = px.line(
-    filtered_df,
-    x='Year',
-    y='Popularity',
-    color='Genre',
-    markers=True,
-    title='Genre-wise Popularity Over Years',
-)
+# # Plot
+# fig = px.line(
+#     filtered_df,
+#     x='Year',
+#     y='Popularity',
+#     color='Genre',
+#     markers=True,
+#     title='Genre-wise Popularity Over Years',
+# )
 
-# Update layout for better readability
-fig.update_layout(
-    xaxis_title='Years',
-    yaxis_title='Average Popularity',
-    legend_title='Genre',
-    legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
-)
+# # Update layout for better readability
+# fig.update_layout(
+#     xaxis_title='Years',
+#     yaxis_title='Average Popularity',
+#     legend_title='Genre',
+#     legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+# )
 
-# Display Plot
-st.plotly_chart(fig)
+# # Display Plot
+# st.plotly_chart(fig)
+
+
+genre_year_popularity = filtered_df.groupby(['Genre', 'ReleaseDate']).agg({'Rank': 'mean'}).reset_index()
+
+# Plotting
+plt.figure(figsize=(14, 8))
+sns.lineplot(x='ReleaseDate', y='Rank', hue='Genre', data=genre_year_popularity, palette='viridis', marker='o')
+plt.title('Genre-wise Popularity Over Years')
+plt.xlabel('Release Years')
+plt.ylabel('Average Rank')
+plt.legend(title='Genre', bbox_to_anchor=(1.05, 1), loc='upper left')
+
+# Display the plot in Streamlit
+st.pyplot(plt)
 
 # %%
 
