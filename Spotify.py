@@ -26,8 +26,8 @@ artist_popularity = artist_popularity[:10]
 artist_popularity = pd.merge(artist_popularity, df[['TrackName','Popularity', 'Artist']], on=['TrackName','Popularity'], how='left')
 artist_popularity = artist_popularity.drop_duplicates(subset=['TrackName', 'Popularity', 'Artist'])
 artist_popularity = artist_popularity.groupby(['TrackName', 'Popularity'])['Artist'].agg(', '.join).reset_index()
-#custom_colors = ["red", "green", "blue", "goldenrod", "magenta", "cyan", "purple", "orange", "pink", "brown"]
-custom_colors = ["#1f78b4", "#33a02c", "#e31a1c", "#ff7f00", "#6a3d9a", "#a6cee3", "#b2df8a", "#fb9a99", "#fdbf6f", "#cab2d6"]
+custom_colors = ["red", "green", "blue", "goldenrod", "magenta", "cyan", "purple", "orange", "pink", "brown"]
+#custom_colors = ["#1f78b4", "#33a02c", "#e31a1c", "#ff7f00", "#6a3d9a", "#a6cee3", "#b2df8a", "#fb9a99", "#fdbf6f", "#cab2d6"]
 barfig = px.bar(artist_popularity, x=artist_popularity['Popularity'], y=artist_popularity['TrackName'], title=f'Top 10 Track Name in {selected_year}', labels={'Popularity': 'Average Popularity'},orientation='h',hover_data=['Artist','Popularity'],color_discrete_sequence=custom_colors)
 barfig.update_layout(yaxis_categoryorder='total ascending')
 st.plotly_chart(barfig)
