@@ -22,5 +22,5 @@ st.title('Top 5 Artists Every Year Based on Popularity')
 selected_year = st.sidebar.selectbox('Select Year', df['Year'].unique())
 yeardf = df[df['Year'] == selected_year]
 artist_popularity = yeardf.groupby('Artist')['Popularity'].mean().sort_values(ascending=False)
-st.write(f'Top 5 Artists in {selected_year}')
-st.write(artist_popularity.head(5))
+barfig = px.bar(artist_popularity, x='Artist', y='Popularity', title=f'Top 5 Artists in {selected_year}', labels={'Popularity': 'Average Popularity'})
+st.plotly_chart(barfig)
