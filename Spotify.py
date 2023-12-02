@@ -23,5 +23,7 @@ yeardf = df[df['Year'] == selected_year]
 #artist_popularity = yeardf.groupby('Artist')['Popularity'].mean().sort_values(ascending=False)
 artist_popularity = yeardf.groupby(['TrackName']).agg({'Popularity': 'mean'}).sort_values(by='Popularity',ascending=False).reset_index()
 artist_popularity = artist_popularity[:10]
-barfig = px.bar(artist_popularity, x=artist_popularity['Popularity'], y=artist_popularity['TrackName'], title=f'Top 10 Track Name in {selected_year}', labels={'Popularity': 'Average Popularity'},orientation='h')
+artist_popularity = pd.merge(artist_popularity, df[['TrackName','Popularity', 'Artist']], on=['TrackName','Popularity'], how='left')
+artist_popularity = artist_popularity.drop_duplicates(subset=['TrackName', 'Popularity', 'Artist'])
+barfig = px.bar(artist_popularity, x=artist_popularity['Popularity'], y=artist_popularity['TrackName'], title=f'Top 10 Track Name in {selected_year}', labels={'Popularity': 'Average Popularity'},orientation='h',hover=['Artist','Popularity'])
 st.plotly_chart(barfig)
