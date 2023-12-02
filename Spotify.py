@@ -19,7 +19,7 @@ st.plotly_chart(fig)
 
 
 st.title('Top 5 Artists Every Year Based on Popularity')
-selected_year = st.sidebar.selectbox('Select Year', df['Year'].unique().sort_values(ascending=True))
+selected_year = st.sidebar.selectbox('Select Year', sorted(df['Year'].unique()))
 yeardf = df[df['Year'] == selected_year]
 #artist_popularity = yeardf.groupby('Artist')['Popularity'].mean().sort_values(ascending=False)
 artist_popularity = yeardf.groupby(['Artist']).agg({'Popularity': 'mean'}).sort_values(by='Popularity',ascending=False).reset_index()
